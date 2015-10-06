@@ -1,4 +1,4 @@
 Melate
 ======
 
-Este código sirve para fines probabilísticos.
+Este código sirve para fines estadísticos y probabilísticos.

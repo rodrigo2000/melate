@@ -6,14 +6,14 @@
 
 
 $(document).ready(function () {
-    $("#getArchivoMelateFormURL").click(function () {
-        getArchivoMelateFormURL();
+    $("#getArchivoMelateFromURL").click(function () {
+        getArchivoMelateFromURL();
     });
 });
 
-function getArchivoMelateFormURL() {
+function getArchivoMelateFromURL() {
     url = 'http://www.pronosticos.gob.mx/Historicos/Melate.csv';
     $.post(base_url + "Panel/getArchivoMelateFormURL", {url: url}, function (json) {
-        alert(json.mensaje);
+        $(".panel-body p","#descargarArchivoMelate").html(json.mensaje);
     }, "json");
 }

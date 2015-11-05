@@ -40,7 +40,7 @@ class MY_Controller extends CI_Controller {
 
     function listado() {
         $this->template = $this->parser->parse($this->module['name'] . "_view", array(), TRUE);
-        $this->load->view("panelcontrol_view");
+        $this->load->view("template_view");
     }
 
     function nuevo($data = array()) {

@@ -59,7 +59,7 @@ $autoload['packages'] = array();
   |
   |	$autoload['libraries'] = array('user_agent' => 'ua');
  */
-$autoload['libraries'] = array('parser', 'form_validation', 'session');
+$autoload['libraries'] = array('database','parser', 'form_validation', 'session');
 
 /*
   | -------------------------------------------------------------------
@@ -128,3 +128,11 @@ $autoload['language'] = array();
   |	$autoload['model'] = array('first_model' => 'first');
  */
 $autoload['model'] = array();
+
+$dir = opendir('application/models');
+while ($file = readdir($dir)) {
+    if (!preg_match('/(.*_model)\.php/', $file, $matches)) {
+        continue;
+    }
+    $autoload['model'][] = $matches[1];
+}

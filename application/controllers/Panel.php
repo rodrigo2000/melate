@@ -14,14 +14,10 @@ class Panel extends MY_Controller {
         $this->id_field = "";
     }
 
-    function index() {
-        $this->load->view("template");
-    }
-
     function getArchivoMelateFormURL() {
         $url = $this->input->post("url");
         //El nombre del archivo donde se almacenara los datos descargados.
-        $filePath = realpath(".") . implode(DIRECTORY_SEPARATOR, array('','resources', 'MelateNuevo.csv'));
+        $filePath = realpath(".") . implode(DIRECTORY_SEPARATOR, array('', 'resources', 'Melate.csv'));
         $file = fopen($filePath, "w+");
         $result = array(
             'success' => FALSE,
@@ -58,6 +54,27 @@ class Panel extends MY_Controller {
             $result['mensaje'] = "CURL Error: #" . curl_errno($ch) . " " . curl_error($ch);
         }
         echo json_encode($result);
+    }
+
+    function csvFile2Database() {
+        $filePath = implode(DIRECTORY_SEPARATOR, array(realpath("."), 'resources', 'Melate.csv'));
+        $result = $this->Melate_model->csvFile2Array($filePath);
+        $keys = array("nproducto", "concurso", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "bolsa", "fecha");
+        $this->db->truncate("melate");
+        $errores = array('success' => TRUE, 'message' => array());
+        foreach ($result as $r) {
+            $c = array_combine($keys, $r);
+            $primerElemento = array_shift($c);
+            $c['bolsa'] = filter_var($c['bolsa'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            list($dia, $mes, $anio) = explode("/", $c['fecha']);
+            $c['fecha'] = implode("-", array($anio, $mes, $dia));
+            $s = $this->Melate_model->insert($c);
+            if ($s != 'success') {
+                $errores['success'] = FALSE;
+                array_push($errores['message'], $s['message']);
+            }
+        }
+        echo json_encode($s);
     }
 
 }

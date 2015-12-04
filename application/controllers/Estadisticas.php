@@ -13,10 +13,30 @@ class Estadisticas extends MY_Controller {
         $this->module['controller'] = 'Estadisticas';
         $this->id_field = "";
     }
-    
-    function censo($numero){
-        //$numero = $this->input->post("numero");
+
+    function censo($numero = NULL) {
+        if ($numero == NULL)
+            $numero = $this->input->post("numero");
         echo $this->Estadisticas_model->censo($numero, '2014-01-01', '2015-01-01');
+    }
+
+    function getNumero() {
+        $numero = $this->input->post("numero");
+        $anios = explode(",", $this->input->post("anios"));
+        $json = $this->Estadisticas_model->getNumero($numero, $anios);
+        $temp = array();
+        foreach ($json as $j) {
+            $temp[$j['anio']] = $j['total'];
+        }
+        //print_r($temp);
+        echo json_encode($temp);
+    }
+
+    function getAnio() {
+        $numeros = explode(",", $this->input->post("numeros"));
+        $anios = $this->input->post("anios");
+        $json = $this->Estadisticas_model->getAnio($numeros, $anios);
+        echo json_encode($json);
     }
 
 }

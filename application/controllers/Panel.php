@@ -17,7 +17,12 @@ class Panel extends MY_Controller {
     function getArchivoMelateFormURL() {
         $url = $this->input->post("url");
         //El nombre del archivo donde se almacenara los datos descargados.
-        $filePath = realpath(".") . implode(DIRECTORY_SEPARATOR, array('', 'resources', 'Melate.csv'));
+        $path = realpath(".") . implode(DIRECTORY_SEPARATOR, array('', 'resources'));
+        $filePath = implode(DIRECTORY_SEPARATOR, array('', $path, 'Melate.csv'));
+        if (!is_writable($path)){
+            chmod($path, 777); // chmod -R 755 /Applications/XAMPP/melate/
+            
+        }
         $file = fopen($filePath, "w+");
         $result = array(
             'success' => FALSE,
@@ -50,6 +55,7 @@ class Panel extends MY_Controller {
 
         if ($r) {
             $result['mensaje'] = "Descarga exitosa";
+            $this->csvFile2Database();
         } else {
             $result['mensaje'] = "CURL Error: #" . curl_errno($ch) . " " . curl_error($ch);
         }
@@ -74,7 +80,7 @@ class Panel extends MY_Controller {
                 array_push($errores['message'], $s['message']);
             }
         }
-        echo json_encode($s);
+        return json_encode($s);
     }
 
 }

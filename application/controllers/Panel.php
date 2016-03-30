@@ -50,6 +50,7 @@ class Panel extends MY_Controller {
 
         if ($r) {
             $result['mensaje'] = "Descarga exitosa";
+            $result['success'] = TRUE;
         } else {
             $result['mensaje'] = "CURL Error: #" . curl_errno($ch) . " " . curl_error($ch);
         }
@@ -74,7 +75,14 @@ class Panel extends MY_Controller {
                 array_push($errores['message'], $s['message']);
             }
         }
-        echo json_encode($s);
+        if ($s['state'] == "success") {
+            $ss['success'] = TRUE;
+            $ss['message'] = 'Se agregaron ' . $s['data']['insert_id'] . ' registros';
+        } else {
+            $ss['success'] = FALSE;
+            $ss['message'] = $s['message'];
+        }
+        echo json_encode($ss);
     }
 
 }

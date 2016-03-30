@@ -51,6 +51,7 @@
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li><a href="<?= base_url(); ?>"><i class="fa fa-dashboard fa-fw"></i> Tablero</a></li>
+                            <li><a href="<?= base_url(); ?>estadisticas_generales"><i class="fa fa-dashboard fa-fw"></i> Estadística General</a></li>
                             <li><a href="<?= base_url(); ?>estadisticas"><i class="fa fa-dashboard fa-fw"></i> Estadísticas</a></li>
                         </ul>
                     </div>
@@ -65,7 +66,7 @@
         </div>
         <!-- /#wrapper -->
         <!-- Metis Menu Plugin JavaScript -->
-        <script src="<?= base_url(); ?>resources/bootstrap/startbootstrap-sb-admin-2-1.0.7/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+        <!--<script src="<?= base_url(); ?>resources/bootstrap/startbootstrap-sb-admin-2-1.0.7/bower_components/metisMenu/dist/metisMenu.min.js"></script>-->
 
         <!-- Morris Charts JavaScript -->
 <!--        <script src="<?= base_url(); ?>resources/bootstrap/startbootstrap-sb-admin-2-1.0.7/bower_components/raphael/raphael-min.js"></script>

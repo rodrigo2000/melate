@@ -117,7 +117,7 @@
                         $this->load->helper("varios_helper");
                         list($dia, $mes, $anio) = explode("/", $datos['FECHA']);
                         echo "<p>La última fecha del archivo <b>" . $archivoMelate . "</b> es: " . $dia . ' de ' . Meses($mes) . ' de ' . $anio . "<br>"
-                        . 'Descarga la última versión haciendo <a href="#" id="getArchivoMelateFromURL">clic aquí</a></p>';
+                        . 'Descarga la última versión haciendo <a href="#" id="getArchivoMelateFromURL">clic aquí</a> <span id="result"></span></p>';
                     }
                     ?>
                 </div>

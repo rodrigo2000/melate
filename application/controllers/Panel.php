@@ -17,7 +17,11 @@ class Panel extends MY_Controller {
     function getArchivoMelateFormURL() {
         $url = $this->input->post("url");
         //El nombre del archivo donde se almacenara los datos descargados.
-        $filePath = realpath(".") . implode(DIRECTORY_SEPARATOR, array('', 'resources', 'Melate.csv'));
+        $path = realpath(".") . implode(DIRECTORY_SEPARATOR, array('', 'resources'));
+        $filePath = implode(DIRECTORY_SEPARATOR, array('', $path, 'Melate.csv'));
+        if (!is_writable($path)){
+            chmod($path, 777); // chmod -R 755 /Applications/XAMPP/melate/
+        }
         $file = fopen($filePath, "w+");
         $result = array(
             'success' => FALSE,

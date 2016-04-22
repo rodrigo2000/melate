@@ -21,6 +21,7 @@ class Panel extends MY_Controller {
         $filePath = implode(DIRECTORY_SEPARATOR, array('', $path, 'Melate.csv'));
         if (!is_writable($path)){
             chmod($path, 777); // chmod -R 755 /Applications/XAMPP/melate/
+            
         }
         $file = fopen($filePath, "w+");
         $result = array(
@@ -54,7 +55,7 @@ class Panel extends MY_Controller {
 
         if ($r) {
             $result['mensaje'] = "Descarga exitosa";
-            $result['success'] = TRUE;
+            $this->csvFile2Database();
         } else {
             $result['mensaje'] = "CURL Error: #" . curl_errno($ch) . " " . curl_error($ch);
         }
